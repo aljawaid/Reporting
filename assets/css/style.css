@@ -1,0 +1,263 @@
+@import url('http://fonts.googleapis.com/css?family=Ubuntu:bold');
+@import url('http://fonts.googleapis.com/css?family=Istok+Web');
+
+/* General */
+
+.hideMe {
+  display: none;
+}
+
+.page-header {
+  background: #fff;
+}
+.page-headerName {
+ font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+ font-size: 50px;
+ line-height: 55px;
+}
+.headerProjectName {
+ font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+ font-size: 30px;
+ line-height: 35px;
+ padding: 10px;
+}
+thead {
+ font-family: 'Istok Web', Helvetica, Arial, sans-serif;
+ font-size: 14px;
+ line-height: 16px;
+}
+th {
+ padding-left: 10px;
+ border-left: 0px;
+ border-bottom: 1px solid #CCC;
+}
+td {
+ padding-left: 10px;
+ border-left: 0px;
+ border-bottom: none;
+}
+.infoNoData {
+ font-family: 'Istok Web', Helvetica, Arial, sans-serif;
+ font-size: 14px;
+ line-height: 16px;
+ font-weight: bold;
+ padding-left: 10px;
+}
+.tableData {
+ width: inherit;
+ border-left: none;
+ border-right: none;
+/* border-left: 1px solid #CCC;*/
+ border-top: 1px solid #CCC;
+ border-bottom: 1px solid #CCC;
+ display: inline-block;
+}
+input[type=text], input[type=number] {
+    border-bottom: 1px solid grey!important;
+    font-size: 14px!important;
+    margin-top: 5px!important;
+    width: 300px;
+    border: none;
+}
+
+
+/* Specific for used */
+.col1U {
+ width: 10px;
+ padding-right: 10px;
+}
+.col2U {
+ width: 150px;
+}
+.col3U {
+ width: 150px;
+}
+.col4U {
+ width: 150px;
+}
+.col5U {
+ width: 350px;
+}
+
+.addUsed {
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f9f9f9), color-stop(1, #e9e9e9));
+	background:-moz-linear-gradient(top, #f9f9f9 5%, #e9e9e9 100%);
+	background:-webkit-linear-gradient(top, #f9f9f9 5%, #e9e9e9 100%);
+	background:-o-linear-gradient(top, #f9f9f9 5%, #e9e9e9 100%);
+	background:-ms-linear-gradient(top, #f9f9f9 5%, #e9e9e9 100%);
+	background:linear-gradient(to bottom, #f9f9f9 5%, #e9e9e9 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9', endColorstr='#e9e9e9',GradientType=0);
+	background-color:#f9f9f9;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:block;
+	cursor:pointer;
+	color:#3e3e3e;
+	font-family:Arial;
+	font-size:14px;
+	font-weight:bold;
+	padding:4px 20px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+        /*margin-bottom: 10px;*/
+}
+.addUsed:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #e9e9e9), color-stop(1, #f9f9f9));
+	background:-moz-linear-gradient(top, #e9e9e9 5%, #f9f9f9 100%);
+	background:-webkit-linear-gradient(top, #e9e9e9 5%, #f9f9f9 100%);
+	background:-o-linear-gradient(top, #e9e9e9 5%, #f9f9f9 100%);
+	background:-ms-linear-gradient(top, #e9e9e9 5%, #f9f9f9 100%);
+	background:linear-gradient(to bottom, #e9e9e9 5%, #f9f9f9 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#e9e9e9', endColorstr='#f9f9f9',GradientType=0);
+	background-color:#e9e9e9;
+}
+.addUsed:active {
+	position:relative;
+	top:1px;
+}
+
+.deleteUsed {
+    -webkit-appearance: none;
+    outline: none;
+    border: 0;
+    background: transparent;
+    padding-right: 5px;
+    padding-left: 5px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.deleteUsed:hover 
+{
+    transform: rotate(-15deg);
+}
+
+
+/* Specific for budget */
+
+.col1B {
+ width: 10px;
+ padding-right: 10px;
+}
+.col2B {
+ width: 100px;
+}
+.col3B {
+ width: 85px;
+}
+.col4B {
+ width: 70px;
+}
+.col5B {
+ width: 110px;
+}
+.col6B {
+ width: 350px;
+}
+
+
+.addBudget {
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f9f9f9), color-stop(1, #e9e9e9));
+	background:-moz-linear-gradient(top, #f9f9f9 5%, #e9e9e9 100%);
+	background:-webkit-linear-gradient(top, #f9f9f9 5%, #e9e9e9 100%);
+	background:-o-linear-gradient(top, #f9f9f9 5%, #e9e9e9 100%);
+	background:-ms-linear-gradient(top, #f9f9f9 5%, #e9e9e9 100%);
+	background:linear-gradient(to bottom, #f9f9f9 5%, #e9e9e9 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9', endColorstr='#e9e9e9',GradientType=0);
+	background-color:#f9f9f9;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:block;
+	cursor:pointer;
+	color:#3e3e3e;
+	font-family:Arial;
+	font-size:14px;
+	font-weight:bold;
+	padding:4px 20px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+        /*margin-bottom: 10px;*/
+}
+.addBudget:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #e9e9e9), color-stop(1, #f9f9f9));
+	background:-moz-linear-gradient(top, #e9e9e9 5%, #f9f9f9 100%);
+	background:-webkit-linear-gradient(top, #e9e9e9 5%, #f9f9f9 100%);
+	background:-o-linear-gradient(top, #e9e9e9 5%, #f9f9f9 100%);
+	background:-ms-linear-gradient(top, #e9e9e9 5%, #f9f9f9 100%);
+	background:linear-gradient(to bottom, #e9e9e9 5%, #f9f9f9 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#e9e9e9', endColorstr='#f9f9f9',GradientType=0);
+	background-color:#e9e9e9;
+}
+.addBudget:active {
+	position:relative;
+	top:1px;
+}
+
+.editBudget
+{
+    -webkit-appearance: none;
+    outline: none;
+    border: 0;
+    background: transparent;
+    padding-right: 5px;
+    padding-left: 5px;
+    cursor: pointer;
+}
+
+.editBudget:hover
+{
+    transform: rotate(-15deg);
+}
+
+.deleteBudget
+{
+    -webkit-appearance: none;
+    outline: none;
+    border: 0;
+    background: transparent;
+    padding-right: 5px;
+    padding-left: 5px;
+    margin-left: 0px;
+    cursor: pointer;
+}
+
+.deleteBudget:hover
+{
+    transform: rotate(-15deg);
+}
+
+/* Specific for report */
+.singleReportHide {
+    float: right;
+    -webkit-appearance: none;
+    outline: none;
+    border: 0;
+    background: transparent;
+    padding-right: 5px;
+    padding-left: 5px;
+    margin-right: 10px;
+}
+
+th {
+    border-top: 1px solid #CCC;
+}
+
+.tableReport {
+   width: inherit;
+   border-left: none;
+   border-right: none;
+   border-top: none;
+   border-bottom: none;
+   display: inline-block;
+}
+
