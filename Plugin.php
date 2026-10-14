@@ -34,6 +34,10 @@ class Plugin extends Base
     {
         return '0.0.1';
     }
+    public function getCompatibleVersion()
+    {
+        return '>=1.2.54';
+    }
     public function getPluginDescription()
     {
         return 'Reporting';
