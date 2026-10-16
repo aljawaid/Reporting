@@ -1,0 +1,27 @@
+---
+rules:
+  braces:
+    level: warning
+    min-spaces-inside: 0
+    max-spaces-inside: 0
+  brackets:
+    level: warning
+    min-spaces-inside: 0
+    max-spaces-inside: 0
+  comments: disable
+  comments-indentation: disable
+  document-end: disable
+  document-start:
+    level: warning
+    present: true
+  indentation:
+    level: warning
+    spaces: consistent
+    indent-sequences: true
+    check-multi-line-strings: false
+  key-duplicates: enable
+  line-length: disable
+  new-line-at-end-of-file: enable
+  new-lines:
+    type: unix
+  trailing-spaces: {}

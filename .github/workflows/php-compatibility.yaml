@@ -1,3 +1,4 @@
+---
 name: PHP Compatibility
 
 on:
@@ -86,3 +87,71 @@ jobs:
           }
           echo $pluginName." loaded on Kanboard ".APP_VERSION." with PHP ".PHP_VERSION.PHP_EOL;
           PHP
+
+      - name: Run focused regression tests
+        env:
+          KANBOARD_PLUGINS_DIR: ${{ github.workspace }}/kanboard/plugins
+        run: php plugin/tests/run.php kanboard
+
+      - name: Check JavaScript syntax
+        run: node --check plugin/assets/js/reporting.js
+
+  database-compatibility:
+    name: Database migrations
+    runs-on: ubuntu-24.04
+    services:
+      mysql:
+        image: mysql:8.4@sha256:24989179f58856db763f418010c1169fecc944e3ec1ea7e921572d83eb070f70
+        env:
+          MYSQL_DATABASE: reporting
+          MYSQL_ROOT_PASSWORD: reporting
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -preporting"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+      postgres:
+        image: postgres:18@sha256:74935e72241653ca55e0414067e6d8763aceb8a810eb51b452253ec3dcfc4336
+        env:
+          POSTGRES_DB: reporting
+          POSTGRES_PASSWORD: reporting
+          POSTGRES_USER: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres -d reporting"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+
+    steps:
+      - name: Checkout plugin
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@4424c9aab975b57bd706ee5a39c6b4334d6e4f60 # 2.40.0
+        with:
+          php-version: '8.5'
+          extensions: pdo_mysql, pdo_pgsql, pdo_sqlite
+          coverage: none
+
+      - name: Test SQLite migrations
+        run: php tests/database_migrations.php sqlite
+
+      - name: Test MySQL migrations
+        env:
+          REPORTING_TEST_DSN: mysql:host=127.0.0.1;port=3306;dbname=reporting;charset=utf8mb4
+          REPORTING_TEST_PASSWORD: reporting
+          REPORTING_TEST_USER: root
+        run: php tests/database_migrations.php mysql
+
+      - name: Test PostgreSQL migrations
+        env:
+          REPORTING_TEST_DSN: pgsql:host=127.0.0.1;port=5432;dbname=reporting
+          REPORTING_TEST_PASSWORD: reporting
+          REPORTING_TEST_USER: postgres
+        run: php tests/database_migrations.php postgres
