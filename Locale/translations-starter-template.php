@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * Starter catalogue for new Reporting translations.
+ *
+ * Copy this file to Locale/<locale>/translations.php and translate each value.
+ * Related test file: tests/TranslationContractTest.php.
+ */
+
+return array(
+    'A printable summary of your current project budgets and latest usage notes.' => '',
+    'Actions' => '',
+    'Add usage' => '',
+    'Budget' => '',
+    'Budget compared with usage' => '',
+    'Budget created successfully.' => '',
+    'Budget overview' => '',
+    'Budget report' => '',
+    'Budget totals' => '',
+    'Budget updated successfully.' => '',
+    'Budget usage' => '',
+    'Budget and its usage entries removed successfully.' => '',
+    'Budget:' => '',
+    'Comment' => '',
+    'Create a project budget before recording usage.' => '',
+    'Create budget' => '',
+    'Date' => '',
+    'Edit budget' => '',
+    'Enter a valid date.' => '',
+    'Enter an amount greater than zero with no more than two decimal places.' => '',
+    'Hide this project from the current printout' => '',
+    'Latest usage comment' => '',
+    'Latest usage date' => '',
+    'No budget data is available to report.' => '',
+    'No budgets have been created yet.' => '',
+    'No usage has been recorded for this project.' => '',
+    'Print report' => '',
+    'Project' => '',
+    'Project:' => '',
+    'Record usage against your personal project budgets.' => '',
+    'Remaining' => '',
+    'Remove budget' => '',
+    'Remove usage entry' => '',
+    'Removing a budget also removes its usage entries. This is confirmed before deletion.' => '',
+    'Removing this budget also permanently removes all of its usage entries. Continue?' => '',
+    'Reporting data is personal to your account and is not shared with other project members.' => '',
+    'Save budget' => '',
+    'Select an accessible project.' => '',
+    'Set one personal budget for each project you can access.' => '',
+    'This usage entry will be permanently removed. Continue?' => '',
+    'Track personal project budgets, usage entries and printable summaries.' => '',
+    'Unable to create this usage entry.' => '',
+    'Unable to remove this budget.' => '',
+    'Unable to remove this usage entry.' => '',
+    'Unable to update this budget.' => '',
+    'Usage entry created successfully.' => '',
+    'Usage entry removed successfully.' => '',
+    'Use no more than 4,000 characters.' => '',
+    'Used' => '',
+    'You already have a budget for this project.' => '',
+    'You need access to an active project before creating a budget.' => '',
+);

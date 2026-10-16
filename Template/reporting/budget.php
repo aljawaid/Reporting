@@ -1,238 +1,113 @@
-<style>
+<?php
 
-.hideMe {
-  display: none;
-}
+/**
+ * Renders the current user's project budget overview.
+ */
 
-</style>
+$chartColumns = array(
+    array_merge(array('x'), array_column($summary, 'project_name')),
+    array_merge(array(t('Budget')), array_map(function (array $row) {
+        return (float) $row['budget'];
+    }, $summary)),
+    array_merge(array(t('Used')), array_map(function (array $row) {
+        return (float) $row['used_total'];
+    }, $summary)),
+);
+$hasAvailableProject = count($projects) > count($budgets);
+?>
+<section class="reporting-page" aria-labelledby="reporting-budget-heading">
+    <header class="reporting-header">
+        <div>
+            <h1 id="reporting-budget-heading"><?= t('Budget overview') ?></h1>
+            <p class="reporting-intro">
+                <?= t('Set one personal budget for each project you can access.') ?>
+                <?= $this->app->tooltipMarkdown(t('Reporting data is personal to your account and is not shared with other project members.')) ?>
+            </p>
+        </div>
+        <?php if ($hasAvailableProject): ?>
+            <?= $this->modal->mediumButton(
+                'plus',
+                t('Create budget'),
+                'ReportingController',
+                'ShowAddBudget',
+                array('plugin' => 'Reporting')
+            ) ?>
+        <?php endif ?>
+    </header>
 
+    <?php if ($summary === array()): ?>
+        <div class="reporting-empty" role="status">
+            <i class="fa fa-line-chart" aria-hidden="true"></i>
+            <p><?= t('No budgets have been created yet.') ?></p>
+            <?php if (!$hasAvailableProject): ?>
+                <p><?= t('You need access to an active project before creating a budget.') ?></p>
+            <?php endif ?>
+        </div>
+    <?php else: ?>
+        <div class="reporting-table-wrap">
+            <table class="reporting-table">
+                <thead>
+                    <tr>
+                        <th scope="col"><?= t('Project') ?></th>
+                        <th scope="col"><?= t('Date') ?></th>
+                        <th scope="col"><?= t('Budget') ?></th>
+                        <th scope="col"><?= t('Used') ?></th>
+                        <th scope="col"><?= t('Remaining') ?></th>
+                        <th scope="col"><?= t('Comment') ?></th>
+                        <th scope="col" class="reporting-actions-heading"><?= t('Actions') ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($summary as $row): ?>
+                        <tr>
+                            <th scope="row" data-label="<?= t('Project') ?>">
+                                <?= $this->text->e($row['project_name']) ?>
+                            </th>
+                            <td data-label="<?= t('Date') ?>"><?= $this->text->e($row['date']) ?></td>
+                            <td data-label="<?= t('Budget') ?>">
+                                <?= number_format((float) $row['budget'], 2, '.', ',') ?>
+                            </td>
+                            <td data-label="<?= t('Used') ?>">
+                                <span><?= number_format((float) $row['used_total'], 2, '.', ',') ?></span>
+                                <small><?= number_format((float) $row['used_percentage'], 1) ?>%</small>
+                            </td>
+                            <td data-label="<?= t('Remaining') ?>">
+                                <span><?= number_format((float) $row['remaining_total'], 2, '.', ',') ?></span>
+                                <small><?= number_format((float) $row['remaining_percentage'], 1) ?>%</small>
+                            </td>
+                            <td data-label="<?= t('Comment') ?>" class="reporting-comment">
+                                <?= nl2br($this->text->e($row['comment'])) ?>
+                            </td>
+                            <td data-label="<?= t('Actions') ?>" class="reporting-actions">
+                                <?= $this->modal->mediumIcon(
+                                    'pencil',
+                                    t('Edit budget'),
+                                    'ReportingController',
+                                    'ShowEditBudget',
+                                    array('plugin' => 'Reporting', 'id' => $row['id'])
+                                ) ?>
+                                <?= $this->modal->mediumIcon(
+                                    'trash',
+                                    t('Remove budget'),
+                                    'ReportingController',
+                                    'ConfirmDeleteBudget',
+                                    array('plugin' => 'Reporting', 'id' => $row['id'])
+                                ) ?>
+                            </td>
+                        </tr>
+                    <?php endforeach ?>
+                </tbody>
+            </table>
+        </div>
 
-
-<?= $this->asset->css('plugins/Reporting/assets/css/style.css') ?>
-
-<?= $this->asset->js('plugins/Reporting/assets/js/jsbudget.js') ?>
-
-<div class="page-header">
-  <p class="page-headerName"><?= t('Budget overview') ?></p>
-  <br>
-  <br>
-  <p><button class="addBudget"><i class="fa fa-plus" aria-hidden="true"></i> Create new budget line</button></p>
-  <br>
-  <br>
-
-  <table class="table-fixed table-small tableData">
-    <tr>
-      <th class="column-5 col1B"><?= t('Edit') ?></th>
-      <th class="column-10 col2B"><?= t('Project') ?></th>
-      <th class="column-10 col3B"><?= t('Date') ?></th>
-      <th class="column-10 col4B"><?= t('Budget') ?></th>
-      <th class="column-10 col5B"><?= t('Used') ?></th>
-      <th class="column-10 col5B"><?= t('Remaining') ?></th>
-      <th class="column-20 col6B"><?= t('Comment') ?></th>
-    </tr>
-
-    <?php
-    $chartCategories .= '"x", ';
-    $chartBudget .= '"Budget", ';
-    $chartUsed .= '"Used", ';
-
-
-    // Loop through budget
-    foreach ($budget as $pa){
-
-    $sumUsed = "0";
-    foreach ($used as $ur) {
-      if ($ur['project_id'] == $pa['project_id']) {
-        $sumUsed = $sumUsed + $ur['used'];
-      }
-    }
-
-    print '<tr id="';
-    print $pa['project_id'];
-    print '" class="topRow ';
-    if ($oldProject_id != $pa['project_id']) {
-      print 'newProjectRow';
-    }
-    print '">';
-    ?>
-      <td>
-        <button class="editBudget" data-id="<?php print $pa['id']; ?>" data-project="<?php print $pa['project_id']; ?>" data-date="<?php print $pa['date']; ?>" data-budget="<?php print $pa['budget']; ?>" data-comment="<?php print $pa['comment']; ?>"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-        <button class="deleteBudget" data-id="<?php print $pa['id']; ?>" data-project="<?php print $pa['project_id']; ?>" data-date="<?php print $pa['date']; ?>" data-budget="<?php print $pa['budget']; ?>" data-comment="<?php print $pa['comment']; ?>"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-      </td>
-      <td>
-        <?php print $pa['project_name']; ?>
-      </td>
-      <td>
-        <?php print $pa['date']; ?>
-      </td>
-      <td>
-        <?php print number_format($pa['budget'], 0, ',', '.'); ?>
-      </td>
-      <td style="padding-right: 20px;">
-        <div style='float: left; text-align: left'><?php print number_format($sumUsed, 0, ',', '.'); ?></div>
-        <div style='float: right; text-align: right; vertical-align: top; font-style: italic; font-size: 11px;'>(<?php print number_format((float)(($sumUsed / $pa['budget']) * 100), 2, '.', ''); ?>%)</div>
-      </td>
-      <td style="padding-right: 20px">
-        <div style='float: left; text-align: left'><?php print number_format(($pa['budget'] - $sumUsed), 0, ',', '.'); ?></div>
-        <div style='float: right; text-align: right; vertical-align: top; font-style: italic; font-size: 11px;'> (<?php print number_format((float)((($pa['budget'] - $sumUsed) / $pa['budget']) * 100), 2, '.', ''); ?>%)</div>
-      </td>
-      <td style="margin-left: 15px;">
-        <?php
-        print '<p style="white-space: pre-line;">';
-        $comment = str_ireplace("<br >", "\r\n", $pa['comment']);
-        print $comment;
-        print '</p>';
-        ?>
-      </td>
-    </tr>
-    <?php
-    $oldProjectId = $pa['project_id'];
-
-    // Loading data into chart variables
-    $chartCategories .= '"' . $pa['project_name'] . '", ';
-    $chartBudget .= $pa['budget'] . ', ';
-    $chartUsed .= $sumUsed . ', ';
-
-    }
-
-    // Cleaning up variables
-    $chartCategories = substr_replace($chartCategories, "", -2);
-    $chartBudget = substr_replace($chartBudget, "", -2);
-    $chartUsed = substr_replace($chartUsed, "", -2);
-    ?>
-
-  </table>
-  <div>
-    <div id="chartArea"></div>
-  </div>
-  <div>
-    <div id="chart"></div>
-  </div>
-  <div>
-    <div id="chartTimeline"></div>
-  </div>
-</div>
-
-
-
-
-
-<div class="hideMe" id="dialogAddBudget" title="New budget line">
-  <?php
-  foreach($projectAccess as $projectAccess) {
-    $listCat .= '<option value="';
-    $listCat .= $projectAccess['project_id'];
-    $listCat .= '">';
-    $listCat .= $projectAccess['project_name'];
-    $listCat .= '</option>';
-  }
-  ?>
-
-  <p>
-  <label for="cat">Category</label>
-  <select name="cat" id="cat">
-  <?php print $listCat; ?>
-  </select>
-  <label for="date">Date</label>
-  <input type="text" id="datepickerBNew">
-  <label for="budgetNew">Budget</label>
-  <input type=number name="budgetNew" id="budgetNew" value="" class="text ui-widget-content ui-corner-all">
-  <label for="used">Comment</label>
-  <input type="text" name="comment" id="commentNew" value="" class="text ui-widget-content ui-corner-all"> 
-  </p>
-</div>
-
-<div class="hideMe" id="dialogEditBudget" title="Edit budget line">
-  <label for="date">Date</label>
-  <input type="text" id="datepickerB">
-  <label for="budget">Budget</label>
-  <input type=number name="budget" id="budget" value="" class="text ui-widget-content ui-corner-all">
-  <label for="comment">Comment</label>
-  <input type="text" name="comment" id="comment" value="" class="text ui-widget-content ui-corner-all"> 
-  </p>
-</div>
-
-
-<script>
-  $(function() {
-  // Area
-  var chart1 = c3.generate({
-    bindto: '#chartArea',
-    data: {
-      x : 'x',
-        columns: [
-          [<?php echo $chartCategories; ?>],
-          [<?php echo $chartBudget; ?>],
-          [<?php echo $chartUsed; ?>],
-        ],
-      type: 'area'
-    },
-    axis: {
-      x: {
-        type: 'category' // this needed to load string x value
-      }
-    },
-    grid: {
-        y: {
-            show: true
-        }
-    },
-    size: {
-      height: 250
-    },
-  });
-
-/*
-  // Timeline
-  var chart3 = c3.generate({
-    bindto: '#chartTimeline',
-    data: {
-      x : 'x',
-        columns: [
-          <?php echo $dateSpline; ?>
-          <?php echo $sum; ?>
-        ],
-      type: 'area'
-    },
-    axis: {
-      x: {
-         type: 'timeseries',
-            tick: {
-                format: '%Y-%m-%d'
-            }
-      }
-    },
-
-  });
-*/
-
-  // Bar chart
-  var chart2 = c3.generate({
-    bindto: '#chart',
-    data: {
-      x : 'x',
-        columns: [
-          [<?php echo $chartCategories; ?>],
-          [<?php echo $chartBudget; ?>],
-          [<?php echo $chartUsed; ?>],
-        ],
-      type: 'bar'
-    },
-    axis: {
-      x: {
-        type: 'category' // this needed to load string x value
-      }
-    },
-    grid: {
-        y: {
-            show: true
-        }
-    },
-    size: {
-      height: 250
-    },
-  });
-  });
-
-
-</script>
+        <section class="reporting-chart-panel" aria-labelledby="reporting-budget-chart-heading">
+            <h2 id="reporting-budget-chart-heading"><?= t('Budget compared with usage') ?></h2>
+            <div
+                class="reporting-chart"
+                data-reporting-chart
+                data-columns="<?= $this->text->e(json_encode($chartColumns)) ?>"
+                aria-hidden="true"
+            ></div>
+        </section>
+    <?php endif ?>
+</section>
