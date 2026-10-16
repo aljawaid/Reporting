@@ -1,4 +1,18 @@
-Version 0.0.1
--------------
+# Changelog
 
-* Initial release
+## 1.0.0 - 2026-10-16
+
+- Added user-scoped POST and CSRF protection for every budget and usage write.
+- Added server-side project access, ownership, amount, date and comment validation.
+- Added upgrade-safe SQLite migration and fresh MySQL and PostgreSQL schemas.
+- Fixed empty-project errors, duplicate user budget handling and zero-budget calculations.
+- Replaced hard-coded asynchronous URLs with Kanboard-generated routes and modal forms.
+- Escaped rendered project and comment data and JSON encoded chart labels.
+- Added responsive tables and cards, light and dark colours, smooth transitions and print support.
+- Added British English translations and an aligned translation starter catalogue.
+- Added focused Kanboard, database, JavaScript, presentation and translation regression checks.
+- Updated compatibility guidance for Kanboard 1.2.54 and PHP 8.2–8.5.
+
+## 0.0.1
+
+- Added the original SQLite project budget, usage and report views.
