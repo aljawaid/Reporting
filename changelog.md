@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.1 - 2026-10-18
+
+- Renamed the canonical changelog to `changelog.md` so release auditing and
+  Kanboard package preparation use the expected cross-platform filename.
+- No database changes.
+
 ## 1.0.0 - 2026-10-16
 
 - Added user-scoped POST and CSRF protection for every budget and usage write.

@@ -99,4 +99,4 @@ CI additionally runs fresh MySQL and PostgreSQL migration checks and the PHP 8.2
 
 ## Release history
 
-See [CHANGELOG](CHANGELOG) for release notes.
+See [changelog.md](changelog.md) for release notes.
