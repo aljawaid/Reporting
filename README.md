@@ -86,7 +86,7 @@ The focused regression suite boots the plugin against Kanboard and checks its da
 ```sh
 php tests/run.php /path/to/kanboard
 php tests/database_migrations.php sqlite
-node --check assets/js/reporting.js
+node --check Assets/js/reporting.js
 ```
 
 CI additionally runs fresh MySQL and PostgreSQL migration checks and the PHP 8.2–8.5 compatibility matrix.

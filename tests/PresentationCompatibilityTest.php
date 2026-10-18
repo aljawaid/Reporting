@@ -3,11 +3,11 @@
 /**
  * Verifies responsive, theme-aware and escaped Reporting presentation contracts.
  *
- * Related production files: assets/css/style.css, assets/js/reporting.js and Reporting templates.
+ * Related production files: Assets/css/style.css, Assets/js/reporting.js and Reporting templates.
  */
 
-$stylesheet = file_get_contents($pluginRoot . '/assets/css/style.css');
-$javascript = file_get_contents($pluginRoot . '/assets/js/reporting.js');
+$stylesheet = file_get_contents($pluginRoot . '/Assets/css/style.css');
+$javascript = file_get_contents($pluginRoot . '/Assets/js/reporting.js');
 $budgetTemplate = file_get_contents($pluginRoot . '/Template/reporting/budget.php');
 $usageTemplate = file_get_contents($pluginRoot . '/Template/reporting/used.php');
 $reportTemplate = file_get_contents($pluginRoot . '/Template/reporting/report.php');

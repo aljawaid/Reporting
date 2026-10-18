@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.2 - 2026-10-18
+
+- FIX: Renamed the plug-in asset directory to canonical `Assets/` casing so
+  protected Linux Kanboard deployments serve the stylesheet and JavaScript
+  instead of returning HTTP 403 responses.
+- Relates to `1c863c0`.
+- No database changes.
+
 ## 1.0.1 - 2026-10-18
 
 - Renamed the canonical changelog to `changelog.md` so release auditing and

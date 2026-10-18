@@ -27,11 +27,11 @@ class Plugin extends Base
         $this->template->hook->attach('template:dashboard:sidebar', 'Reporting:dashboard/sidebar');
         $this->hook->on(
             'template:layout:css',
-            array('template' => 'plugins/Reporting/assets/css/style.css')
+            array('template' => 'plugins/Reporting/Assets/css/style.css')
         );
         $this->hook->on(
             'template:layout:js',
-            array('template' => 'plugins/Reporting/assets/js/reporting.js')
+            array('template' => 'plugins/Reporting/Assets/js/reporting.js')
         );
     }
 
@@ -61,7 +61,7 @@ class Plugin extends Base
 
     public function getPluginVersion()
     {
-        return '1.0.1';
+        return '1.0.2';
     }
 
     public function getCompatibleVersion()
