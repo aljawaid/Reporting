@@ -94,7 +94,7 @@ jobs:
         run: php plugin/tests/run.php kanboard
 
       - name: Check JavaScript syntax
-        run: node --check plugin/assets/js/reporting.js
+        run: node --check plugin/Assets/js/reporting.js
 
   database-compatibility:
     name: Database migrations
