@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.0.3 - 2026-10-20
+
+- FIX: DEPENDENCY: Complete Reporting Update Automation
+- FIX: DEPENDENCY: Upgrade Super-Linter To 9.0.0
+- No database changes.
+
 ## 1.0.2 - 2026-10-18
 
 - FIX: Renamed the plug-in asset directory to canonical `Assets/` casing so
