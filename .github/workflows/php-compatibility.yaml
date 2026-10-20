@@ -17,6 +17,7 @@ jobs:
   compatibility:
     name: PHP ${{ matrix.php }}
     runs-on: ubuntu-24.04
+    timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
@@ -99,6 +100,7 @@ jobs:
   database-compatibility:
     name: Database migrations
     runs-on: ubuntu-24.04
+    timeout-minutes: 15
     services:
       mysql:
         image: mysql:8.4@sha256:24989179f58856db763f418010c1169fecc944e3ec1ea7e921572d83eb070f70
